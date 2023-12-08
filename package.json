@@ -1,6 +1,6 @@
 {
   "name": "mxql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Easier SQL queries.",
   "type": "module",
   "main": "index.js",
