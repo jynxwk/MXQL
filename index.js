@@ -25,6 +25,13 @@ class MXQL {
         });
     }
 
+    /**
+     * Executes a query with the given arguments and returns a Promise.
+     *
+     * @param {String} args - The arguments for the query.
+     * @return {Promise} A Promise that resolves with the result of the query,
+     *                   or rejects with an error if there was an error executing the query.
+     */
     query(args) {
         return new Promise((resolve, reject) => { 
             this.con.query(args, (err, result) => {
@@ -43,6 +50,4 @@ class MXQL {
     }
 }
 
-
-let mxql = new MXQL();
-export default mxql;
+export default new MXQL();
