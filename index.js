@@ -3,18 +3,18 @@ import mysql from "mysql2"
 
 dotenv.config()
 
-const host = process.env.MXSQL_HOST
-const user = process.env.MXSQL_USER
-const password = process.env.MXSQL_PASSWORD
-const database = process.env.MXSQL_DATABASE
-const port = process.env.MXSQL_PORT
+const host = process.env.MXQL_HOST
+const user = process.env.MXQL_USER
+const password = process.env.MXQL_PASSWORD
+const database = process.env.MXQL_DATABASE
+const port = process.env.MXQL_PORT
 
-class MXSQL {
+class MXQL {
     constructor() {
-        if (!host) throw new Error("MXSQL_HOST is not defined.")
-        if (!user) throw new Error("MXSQL_USER is not defined.")
-        if (!password) throw new Error("MXSQL_PASSWORD is not defined.")
-        if (!database) throw new Error("MXSQL_DATABASE is not defined.")
+        if (!host) throw new Error("MXQL_HOST is not defined.")
+        if (!user) throw new Error("MXQL_USER is not defined.")
+        if (!password) throw new Error("MXQL_PASSWORD is not defined.")
+        if (!database) throw new Error("MXQL_DATABASE is not defined.")
 
         this.con = mysql.createConnection({
             host: host,
@@ -44,5 +44,5 @@ class MXSQL {
 }
 
 
-let mxsql = new MXSQL();
-export default mxsql;
+let mxql = new MXQL();
+export default mxql;
