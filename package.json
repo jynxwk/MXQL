@@ -4,9 +4,6 @@
   "description": "Easier SQL queries.",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "mysql",
     "sql",
