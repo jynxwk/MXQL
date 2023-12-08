@@ -5,7 +5,7 @@ An extremly small library that makes queries easier (at least for me).
 
 1. Install dependencies.
 2. Setup the following .env variables:
-```m
+```js
 MXSQL_HOST      // Your database host
 MXSQL_USER      // Your database user
 MXSQL_PASSWORD  // Your database password
