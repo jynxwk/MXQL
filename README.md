@@ -28,3 +28,6 @@ const result = await mxql.query("SELECT * FROM table");
 ## Features
 The main feature is to make queries simpler because I find the standard mysql library query syntax unnecessarily annoying to use. That is also the reason I made this library in the first place. I know that it's nothing special but it makes life a little easier for me. 
 There are more features planned though.
+
+> [!NOTE]
+> This library was only made to improve my coding experience. Feel free to test it out or suggest changes but don't expect it to be anything special.
