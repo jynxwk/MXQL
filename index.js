@@ -41,8 +41,7 @@ class MXQL {
                 }
                 if (result.length === 0) result = undefined
                 else if (result.length === 1) result = result[0]
-                resolve(result)
-                return;
+                return resolve(result);
             })
         })
         .catch(error => {
