@@ -34,12 +34,13 @@ class MXQL {
      */
     query(args) {
         return new Promise((resolve, reject) => { 
-            this.con.query(args, (err, result) => {
+            this.con.query(args, (err, result, fields) => {
                 if (err) {
                     reject(new Error(err))
                     return
                 }
-                if (result.length == 1) result = result[0]
+                if (result.length === 0) result = undefined
+                else if (result.length === 1) result = result[0]
                 resolve(result)
                 return;
             })
