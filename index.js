@@ -1,53 +1,64 @@
-import dotenv from "dotenv"
-import mysql from "mysql2"
+import mysql from "mysql2/promise"
 
-dotenv.config()
-
-const host = process.env.MXQL_HOST
-const user = process.env.MXQL_USER
-const password = process.env.MXQL_PASSWORD
-const database = process.env.MXQL_DATABASE
-const port = process.env.MXQL_PORT
-
-class MXQL {
-    constructor() {
-        if (!host) throw new Error("MXQL_HOST is not defined.")
-        if (!user) throw new Error("MXQL_USER is not defined.")
-        if (!password) throw new Error("MXQL_PASSWORD is not defined.")
-        if (!database) throw new Error("MXQL_DATABASE is not defined.")
-
-        this.con = mysql.createConnection({
-            host: host,
-            user: user,
-            password: password,
-            database: database,
-            port: port ?? 3306
-        });
+export default class MXQL {
+    constructor(config = {host: undefined, user: undefined, password: undefined, database: undefined, port: 3306}) {
+        if (!config.host) throw new Error("Host is not defined")
+        if (!config.user) throw new Error("User is not defined")
+        if (!config.password) throw new Error("Password is not defined")
+        if (!config.database) throw new Error("Database is not defined")
+        this.con = mysql.createPool(config);
     }
 
-    /**
-     * Executes a query with the given arguments and returns a Promise.
-     *
-     * @param {String} args - The arguments for the query.
-     * @return {Promise} A Promise that resolves with the result of the query,
-     *                   or rejects with an error if there was an error executing the query.
-     */
-    query(args) {
-        return new Promise((resolve, reject) => { 
-            this.con.query(args, (err, result, fields) => {
-                if (err) {
-                    reject(new Error(err))
-                    return
-                }
-                if (result.length === 0) result = undefined
-                else if (result.length === 1) result = result[0]
-                return resolve(result);
-            })
-        })
-        .catch(error => {
-            console.error(error)
-        })
+    async query(sql, params) {
+        return await this.con.query(sql, params)
     }
 }
 
-export default new MXQL();
+export class QueryBuilder {
+    constructor(config = {host: undefined, user: undefined, password: undefined, database: undefined, port: 3306}) {
+        this.sql = ""
+        this.parameters = []
+
+        if (!config.host) throw new Error("Host is not defined")
+        if (!config.user) throw new Error("User is not defined")
+        if (!config.password) throw new Error("Password is not defined")
+        if (!config.database) throw new Error("Database is not defined")
+        this.con = mysql.createPool(config);
+    }
+
+    select(params) {
+        this.sql += `SELECT ${params} `
+        return this
+    }
+
+    from(params) {
+        this.sql += `FROM ${params} `
+        return this
+    }
+
+    where(params) {
+        this.sql += `WHERE ${params} `
+        return this
+    }
+
+    orderBy(params) {
+        this.sql += `ORDER BY ${params} `
+        return this
+    }
+
+    limit(params) {
+        this.sql += `LIMIT ${params} `
+        return this
+    }
+
+    values() {
+        for (let i = 0; i < arguments.length; i++) {
+            this.parameters.push(arguments[i])
+        }
+        return this
+    }
+
+    async run() {
+        return await this.con.query(this.sql, this.params)
+    }
+}
