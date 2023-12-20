@@ -2,7 +2,9 @@
 An extremly small library that makes queries easier (at least for me).
 
 ## Installation
-`npm install mxql`
+```
+npm install mxql
+```
 
 ## Usage
 
