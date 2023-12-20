@@ -6,7 +6,7 @@ An extremly small library that makes queries easier (at least for me).
 
 ## Usage
 
-### import
+### Import
 ```js
 import MXQL from "mxql";
 ```
@@ -23,7 +23,7 @@ const config = {
 
 const db = new MXQL(config)
 const result = await db.query("SELECT * FROM table WHERE condition = ?", ["value"]);
-console.log(result) // Logs all rows and fields.
+console.log(result) // Logs rows and fields based on the condition.
 ```
 
 ### QueryBuilder
@@ -41,7 +41,7 @@ const config = {
 
 const qb = new QueryBuilder(config)
 const result = await qb.select("*").from("table").where("condition = ?").values("value").run()
-console.log(result) // Logs all rows and fields.
+console.log(result) // Logs rows and fields based on the condition.
 ```
 
 > [!WARNING]
